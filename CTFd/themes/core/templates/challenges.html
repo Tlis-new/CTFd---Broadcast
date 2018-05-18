@@ -51,20 +51,31 @@
 </div>
 {% endif %}
 
-{% if not admin and not errors %}
-<div class="notification-box-fixed">
+{% if not errors %}
+<div class="notification-box-fixed" id="list-notic-box" tabindex="0">
 	<div class="header">
 		Thông báo
 	</div>
 	<div class="container">
-		<div class="notic">
-			<h4 class="notic-header">Title</h4>
-			<p class="notic-content">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-			</p>
-		</div>
+
 	</div>
 </div>
+
+<script>
+var sock = new WebSocket('ws://localhost:8881');
+sock.onmessage = function(event){
+	var notic = '<div class="notic">
+		'+event.data+'
+	</div>';
+	document.getElementById('list-message').innerHTML +=  notic;
+	document.getElementById('list-notic-box').classList.add('has-notic');
+};
+
+document.getElementById('list-notic-box').addEventListener('focus', function(event){
+	this.classList.remove('has-notic');
+})
+
+</script>
 {% endif %}
 
 {% endblock %}
