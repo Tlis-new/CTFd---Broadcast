@@ -39,3 +39,34 @@
 .key-submit .btn {
     height: 51px;
 }
+
+/*notification bõx*/
+.notification-box-fixed{
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: 300px;
+}
+
+.notification-box-fixed .header{
+	background: #4285f4;
+	color: #fff;
+	border-radius: 5px 5px 0 0;
+	padding: 7px 14px;
+}
+
+.notification-box-fixed .container{
+	height: 500px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.notification-box-fixed .container .notic .notic-header{
+	font-size: 18px;
+	padding: 0 14px;
+}
+
+.notification-box-fixed .container .notic .notic-content{
+	margin: 0;
+	padding: 0 14px;
+}

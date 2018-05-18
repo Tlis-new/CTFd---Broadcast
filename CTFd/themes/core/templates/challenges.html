@@ -50,6 +50,23 @@
 <div class="modal fade" id="chal-window" tabindex="-1" role="dialog">
 </div>
 {% endif %}
+
+{% if not admin and not errors %}
+<div class="notification-box-fixed">
+	<div class="header">
+		Thông báo
+	</div>
+	<div class="container">
+		<div class="notic">
+			<h4 class="notic-header">Title</h4>
+			<p class="notic-content">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+			</p>
+		</div>
+	</div>
+</div>
+{% endif %}
+
 {% endblock %}
 
 {% block scripts %}
