@@ -7,7 +7,7 @@ from CTFd.plugins.challenges import get_chal_class, CHALLENGE_CLASSES
 from CTFd import utils
 
 import os
-
+from client import *
 admin_challenges = Blueprint('admin_challenges', __name__)
 
 
@@ -279,6 +279,7 @@ def admin_create_chal():
         chal_type = request.form['chaltype']
         chal_class = get_chal_class(chal_type)
         chal_class.create(request)
+	broadcast()
         return redirect(url_for('admin_challenges.admin_chals'))
     else:
         return render_template('admin/chals/create.html')
