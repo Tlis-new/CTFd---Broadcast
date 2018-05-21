@@ -50,6 +50,7 @@
 }
 
 .notification-box-fixed .header{
+	cursor: pointer;
 	background: #4285f4;
 	color: #fff;
 	border-radius: 5px 5px 0 0;
@@ -58,7 +59,7 @@
 }
 
 .notification-box-fixed .container{
-	height: 330px;
+	height: 300px;
 	overflow-y: auto;
 	overflow-x: hidden;
 }

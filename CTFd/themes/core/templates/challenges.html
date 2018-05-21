@@ -53,7 +53,7 @@
 
 {% if not errors %}
 <div class="notification-box-fixed" id="list-notic-box" tabindex="0">
-	<div class="header">
+	<div class="header" onclick="toggleNotic(this)">
 		Thông báo
 	</div>
 	<div class="container">
@@ -73,7 +73,15 @@ sock.onmessage = function(event){
 
 document.getElementById('list-notic-box').addEventListener('focus', function(event){
 	this.classList.remove('has-notic');
-})
+});
+
+function toggleNotic(el){
+	if(el.className.indexOf('active') !== -1)
+		el.classList.remove('active');
+	else {
+		el.classList.add('active');
+	}
+};
 
 </script>
 {% endif %}
