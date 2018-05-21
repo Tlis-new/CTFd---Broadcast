@@ -47,6 +47,7 @@
 	right: 0;
 	width: 300px;
 	box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
+	z-index: 1000;
 }
 
 .notification-box-fixed .header{
@@ -61,7 +62,7 @@
 .notification-box-fixed.has-notic .header{
 	animation-name: changeColor;
 	animation-iteration-count: infinite;
-	animation-duration: 1s;
+	animation-duration: 3s;
 }
 
 @keyframes changeColor {
