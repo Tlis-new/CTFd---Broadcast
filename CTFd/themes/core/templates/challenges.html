@@ -63,6 +63,7 @@
 
 <script>
 var sock = new WebSocket('ws://localhost:8881');
+alert("ok!");
 sock.onmessage = function(event){
 	var notic = `<div class="notic">
 		`+event.data+`
