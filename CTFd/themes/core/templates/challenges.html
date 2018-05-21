@@ -70,6 +70,7 @@ sock.onmessage = function(event){
 	document.getElementById('list-notic').innerHTML +=  notic;
 	var noticBox = document.getElementById('list-notic-box');
 	if(noticBox.className.indexOf('has-notic') === -1){
+		console.log('ok!');
 		noticBox.classList.add('has-notic');
 	}
 };
