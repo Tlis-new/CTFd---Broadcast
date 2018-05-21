@@ -62,32 +62,32 @@
 </div>
 
 <script>
-// var sock = new WebSocket('ws://localhost:8881');
-// alert("ok!");
-// sock.onmessage = function(event){
-// 	var notic = `<div class="notic">
-// 		`+event.data+`
-// 	</div>`;
-// 	document.getElementById('list-notic').innerHTML +=  notic;
-// 	var noticBox = document.getElementById('list-notic-box');
-// 	if(noticBox.className.indexOf('has-notic') === -1){
-// 		console.log('something wrong!');
-// 		noticBox.classList.add('has-notic');
-// 	}
-// };
-//
-// document.getElementById('list-notic-box').addEventListener('focus', function(event){
-// 	this.classList.remove('has-notic');
-// });
-//
-// function toggleNotic(){
-// 	var noticBox = document.getElementById('list-notic-box');
-// 	if(noticBox.className.indexOf('active') !== -1)
-// 		noticBox.classList.remove('active');
-// 	else {
-// 		noticBox.classList.add('active');
-// 	}
-// };
+var sock = new WebSocket('ws://localhost:8881');
+alert("ok!");
+sock.onmessage = function(event){
+	var notic = `<div class="notic">
+		`+event.data+`
+	</div>`;
+	document.getElementById('list-notic').innerHTML +=  notic;
+	var noticBox = document.getElementById('list-notic-box');
+	if(noticBox.className.indexOf('has-notic') === -1){
+		console.log('something wrong!');
+		noticBox.classList.add('has-notic');
+	}
+};
+
+document.getElementById('list-notic-box').addEventListener('focus', function(event){
+	this.classList.remove('has-notic');
+});
+
+function toggleNotic(){
+	var noticBox = document.getElementById('list-notic-box');
+	if(noticBox.className.indexOf('active') !== -1)
+		noticBox.classList.remove('active');
+	else {
+		noticBox.classList.add('active');
+	}
+};
 
 </script>
 {% endif %}
