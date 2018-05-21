@@ -64,14 +64,15 @@
 <script>
 var sock = new WebSocket('ws://localhost:8881');
 sock.onmessage = function(event){
-	console.log(event.data);
 	var notic = `<div class="notic">
 		`+event.data+`
 	</div>`;
 	document.getElementById('list-notic').innerHTML +=  notic;
-	var list = document.getElementById('list-notic-box');
-	if(list.className.indexOf('has-notic') === -1)
-		list.classList.add('has-notic');
+	var noticBox = document.getElementById('list-notic-box');
+	if(noticBox.className.indexOf('has-notic') === -1){
+		console.log('something wrong!');
+		noticBox.classList.add('has-notic');
+	}
 };
 
 document.getElementById('list-notic-box').addEventListener('focus', function(event){
