@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from flask import current_app as app, render_template, request, redirect, jsonify, url_for, Blueprint
 from CTFd.utils import admins_only, is_admin, cache
 from CTFd.models import db, Teams, Solves, Awards, Challenges, WrongKeys, Keys, Tags, Files, Tracking, Pages, Config, Hints, Unlocks, DatabaseError
@@ -110,6 +112,11 @@ def admin_chal_solves(chalid):
         Solves.date.asc())
     for solve in solves:
         response['teams'].append({'id': solve.team.id, 'name': solve.team.name, 'date': solve.date})
+        filter = Challenges.query.filter_by(id = chalid).all()
+        chalname = filter[0].name
+        chal_category = filter[0].category
+        chal_value = filter[0].value
+        broadcast("Đội " + solve.team.name + " đã giải được " + chal_category + str(chal_value) + ": " + chalname)
     return jsonify(response)
 
 
@@ -156,7 +163,6 @@ def admin_hints(hintid):
             hint.chal = int(request.form.get('chal'))
             hint.cost = int(request.form.get('cost') or 0)
             db.session.commit()
-
         elif request.method == 'DELETE':
             db.session.delete(hint)
             db.session.commit()
@@ -191,6 +197,11 @@ def admin_hints(hintid):
             cost = int(request.form.get('cost') or 0)
             hint_type = request.form.get('type', 0)
             hint = Hints(chal=chalid, hint=hint, cost=cost)
+            filter = Challenges.query.filter_by(id = chalid).all()
+            chalname = filter[0].name
+            chal_category = filter[0].category
+            chal_value = filter[0].value
+            broadcast("Câu " + chal_category + str(chal_value) + ": " + chalname + " đã thêm gợi ý")
             db.session.add(hint)
             db.session.commit()
             json_data = {
@@ -279,7 +290,8 @@ def admin_create_chal():
         chal_type = request.form['chaltype']
         chal_class = get_chal_class(chal_type)
         chal_class.create(request)
-	broadcast()
+        if not 'hidden' in request.form:
+            broadcast("Câu " + request.form['category'] + request.form['value'] + ": " + request.form['name'] + " đã được mở!")
         return redirect(url_for('admin_challenges.admin_chals'))
     else:
         return render_template('admin/chals/create.html')
@@ -298,6 +310,16 @@ def admin_delete_chal():
 @admins_only
 def admin_update_chal():
     challenge = Challenges.query.filter_by(id=request.form['id']).first_or_404()
-    chal_class = get_chal_class(challenge.type)
-    chal_class.update(challenge, request)
+    if challenge.hidden == True:
+        chal_class = get_chal_class(challenge.type)
+        chal_class.update(challenge, request)
+        if not 'hidden' in request.form:
+            broadcast("Câu " + request.form['category'] + request.form['value'] + ": " + request.form['name'] + " đã được mở!")
+    else:
+        chal_class = get_chal_class(challenge.type)
+        chal_class.update(challenge, request)
+        if not 'hidden' in request.form:
+            broadcast("Câu " + request.form['category'] + request.form['value'] + ": " + request.form['name'] + " đã được update")
+        else:
+            broadcast("Câu " + request.form['category'] + request.form['value'] + ": " + request.form['name'] + " đã được đóng")
     return redirect(url_for('admin_challenges.admin_chals'))
