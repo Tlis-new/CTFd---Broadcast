@@ -74,9 +74,9 @@ sock.onmessage = function(event){
 	}
 };
 
-document.getElementById('list-notic-box').addEventListener('focus', function(event){
+document.getElementById('list-notic-box').addEventListener('focus', function(){
 	if(this.className.indexOf('has-notic') !== -1){
-		noticBox.classList.remove('has-notic');
+		this.classList.remove('has-notic');
 	}
 });
 
