@@ -58,6 +58,22 @@
 	font-weight: bold;
 }
 
+.notification-box-fixed.has-notic .header{
+	animation-name: changeColor;
+	animation-iteration-count: infinite;
+	animation-duration: 0.2s;
+}
+
+@keyframes changeColor {
+	0%:{
+		background: #4285f4;
+	}
+
+	100%{
+		background: #eee;
+	}
+}
+
 .notification-box-fixed .container{
 	height: 300px;
 	overflow-y: auto;
