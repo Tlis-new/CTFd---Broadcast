@@ -40,6 +40,10 @@
     height: 51px;
 }
 
+.footer{
+	z-index: -1;
+}
+
 /*notification bõx*/
 .notification-box-fixed{
 	position: fixed;
