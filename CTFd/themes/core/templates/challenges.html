@@ -64,9 +64,9 @@
 <script>
 var sock = new WebSocket('ws://localhost:8881');
 sock.onmessage = function(event){
-	var notic = '<div class="notic">
-		'+event.data+'
-	</div>';
+	var notic = `<div class="notic">
+		`+event.data+`
+	</div>`;
 	document.getElementById('list-message').innerHTML +=  notic;
 	document.getElementById('list-notic-box').classList.add('has-notic');
 };
