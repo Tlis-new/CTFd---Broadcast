@@ -75,9 +75,13 @@
 }
 
 .notification-box-fixed .container{
-	height: 300px;
+	height: 0px;
 	overflow-y: auto;
 	overflow-x: hidden;
+}
+
+.notification-box-fixed .header.active + .container{
+	height: 300px;
 }
 
 .notification-box-fixed .container .notic{

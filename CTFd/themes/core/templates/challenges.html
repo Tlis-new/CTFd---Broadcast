@@ -56,7 +56,7 @@
 	<div class="header" onclick="toggleNotic(this)">
 		Thông báo
 	</div>
-	<div class="container">
+	<div class="container" id="list-notic">
 
 	</div>
 </div>
@@ -67,8 +67,10 @@ sock.onmessage = function(event){
 	var notic = `<div class="notic">
 		`+event.data+`
 	</div>`;
-	document.getElementById('list-message').innerHTML +=  notic;
-	document.getElementById('list-notic-box').classList.add('has-notic');
+	document.getElementById('list-notic').innerHTML +=  notic;
+	var list = document.getElementById('list-notic-box');
+	if(list.className.indexOf('has-notic') !== -1)
+		list.classList.remove('has-notic');
 };
 
 document.getElementById('list-notic-box').addEventListener('focus', function(event){
