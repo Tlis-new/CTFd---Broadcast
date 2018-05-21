@@ -61,7 +61,7 @@
 .notification-box-fixed.has-notic .header{
 	animation-name: changeColor;
 	animation-iteration-count: infinite;
-	animation-duration: 0.2s;
+	animation-duration: 1s;
 }
 
 @keyframes changeColor {
@@ -78,6 +78,7 @@
 	height: 0px;
 	overflow-y: auto;
 	overflow-x: hidden;
+	background: #fff;
 }
 
 .notification-box-fixed.active .container{
