@@ -74,8 +74,12 @@
 		background: #4285f4;
 	}
 
-	100%{
+	50%{
 		background: #eee;
+	}
+
+	100%:{
+		background: #4285f4;
 	}
 }
 
