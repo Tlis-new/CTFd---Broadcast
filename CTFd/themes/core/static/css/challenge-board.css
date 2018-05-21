@@ -80,7 +80,7 @@
 	overflow-x: hidden;
 }
 
-.notification-box-fixed .header.active + .container{
+.notification-box-fixed.active .container{
 	height: 300px;
 }
 
