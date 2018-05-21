@@ -70,8 +70,8 @@ sock.onmessage = function(event){
 	</div>`;
 	document.getElementById('list-notic').innerHTML +=  notic;
 	var list = document.getElementById('list-notic-box');
-	if(list.className.indexOf('has-notic') !== -1)
-		list.classList.remove('has-notic');
+	if(list.className.indexOf('has-notic') === -1)
+		list.classList.add('has-notic');
 };
 
 document.getElementById('list-notic-box').addEventListener('focus', function(event){
