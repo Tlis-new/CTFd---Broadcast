@@ -341,3 +341,7 @@ class Config(db.Model):
     def __init__(self, key, value):
         self.key = key
         self.value = value
+class Notification(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    content = db.Column(db.String(250))
+

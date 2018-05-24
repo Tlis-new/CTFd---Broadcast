@@ -14,6 +14,6 @@ class SimpleChat(WebSocket):
    	def handleClose(self):
 		clients.remove(self)
 
-server =SimpleWebSocketServer('127.0.0.1', 8881, SimpleChat)
+server =SimpleWebSocketServer('203.162.130.85', 8881, SimpleChat)
 server.serveforever()
 

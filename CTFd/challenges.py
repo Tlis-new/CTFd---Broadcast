@@ -6,7 +6,7 @@ import time
 from flask import render_template, request, redirect, jsonify, url_for, session, Blueprint, abort
 from sqlalchemy.sql import or_
 
-from CTFd.models import db, Challenges, Files, Solves, WrongKeys, Keys, Tags, Teams, Awards, Hints, Unlocks
+from CTFd.models import db, Challenges, Files, Solves, WrongKeys, Keys, Tags, Teams, Awards, Hints, Unlocks,Notification
 from CTFd.plugins.keys import get_key_class
 from CTFd.plugins.challenges import get_chal_class
 
@@ -423,3 +423,12 @@ def chal(chalid):
             'status': -1,
             'message': "You must be logged in to solve a challenge"
         })
+@challenges.route('/noti/<int:page>', methods=['GET'])
+@during_ctf_time_only
+@viewable_without_authentication()
+def ViewNoti(page):
+    limit = 10
+    offset = (page-1) * limit
+    notifi = Notification.query.offset(offset).limit(limit)
+    return jsonify([i.content for i in notifi])
+

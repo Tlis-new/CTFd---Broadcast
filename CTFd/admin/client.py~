@@ -1,0 +1,5 @@
+import websocket
+def broadcast(noti):
+	ws = websocket.WebSocket()
+	ws.connect("ws://203.162.130.85:8881")
+	ws.send(noti)
