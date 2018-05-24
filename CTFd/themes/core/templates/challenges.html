@@ -62,7 +62,7 @@
 </div>
 
 <script>
-var sock = new WebSocket('ws://127.0.0.1:8881');
+var sock = new WebSocket('ws://103.53.198.167:8881');
 sock.onmessage = function(event){
 	var notic = `<div class="notic">
 		`+event.data+`
@@ -72,6 +72,8 @@ sock.onmessage = function(event){
 	if(noticBox.className.indexOf('has-notic') === -1){
 		noticBox.classList.add('has-notic');
 	}
+	var container = document.getElementById('list-notic');
+	container.scrollTop = container.scrollHeight;
 };
 
 document.getElementById('list-notic-box').addEventListener('focus', function(){
@@ -127,7 +129,7 @@ function getNotification(){
 			
 		}
 	};
-	xhttp.open("GET", 'http://127.0.0.1:4000/noti/'+page, true);
+	xhttp.open("GET", 'http://103.53.198.167:4000/noti/'+page, true);
 	xhttp.send();
 }
 
