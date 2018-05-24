@@ -6,7 +6,7 @@ from flask.helpers import safe_join
 from jinja2.exceptions import TemplateNotFound
 from passlib.hash import bcrypt_sha256
 
-from CTFd.models import db, Teams, Solves, Awards, Files, Pages
+from CTFd.models import db, Teams, Solves, Awards, Files, Pages,Notification
 from CTFd.utils import cache, markdown
 from CTFd import utils
 
@@ -102,6 +102,12 @@ def setup():
         return render_template('setup.html', nonce=session.get('nonce'))
     return redirect(url_for('views.static_html'))
 
+@views.route('/noti/<int:page>',methods=['GET'])
+def ViewNoti(page):
+    limit = 10
+    offset = (page-1) * limit
+    notifi = Notification.query.order_by(Notification.id.desc()).offset(offset).limit(limit)
+    return jsonify([i.content for i in notifi])
 
 # Custom CSS handler
 @views.route('/static/user.css')

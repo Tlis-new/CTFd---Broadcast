@@ -423,12 +423,5 @@ def chal(chalid):
             'status': -1,
             'message': "You must be logged in to solve a challenge"
         })
-@challenges.route('/noti/<int:page>', methods=['GET'])
-@during_ctf_time_only
-@viewable_without_authentication()
-def ViewNoti(page):
-    limit = 10
-    offset = (page-1) * limit
-    notifi = Notification.query.offset(offset).limit(limit)
-    return jsonify([i.content for i in notifi])
+
 

@@ -52,11 +52,11 @@
 {% endif %}
 
 {% if not errors %}
-<div class="notification-box-fixed" id="list-notic-box" tabindex="0">
+<div class="notification-box-fixed active" id="list-notic-box" tabindex="0">
 	<div class="header" onclick="toggleNotic()">
 		Thông báo
 	</div>
-	<div class="container" id="list-notic">
+	<div class="container" id="list-notic" onscroll="listNoticScroll(this)">
 
 	</div>
 </div>
@@ -80,6 +80,15 @@ document.getElementById('list-notic-box').addEventListener('focus', function(){
 	}
 });
 
+var page = 1;
+
+function listNoticScroll(container){
+	
+	if(container.scrollTop <= 0 && document.getElementById('list-notic-box').className.indexOf('active') !== -1){
+		getNotification();
+	}
+}
+
 function toggleNotic(){
 	var noticBox = document.getElementById('list-notic-box');
 	if(noticBox.className.indexOf('active') !== -1)
@@ -88,6 +97,39 @@ function toggleNotic(){
 		noticBox.classList.add('active');
 	}
 };
+
+getNotification();
+
+function getNotification(){
+	var xhttp = new XMLHttpRequest();
+	var container = document.getElementById('list-notic');
+	
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var messages = JSON.parse(xhttp.responseText);
+			messages.reverse();
+			var notic = '';
+			
+			if(messages.length > 0){
+				messages.forEach(function(message){
+					notic += `<div class="notic">
+						`+message+`
+					</div>`;
+				});
+			
+				container.innerHTML =  notic + container.innerHTML;
+				
+				if(page == 1){
+					container.scrollTop = container.scrollHeight;
+				}
+				page++;
+			}
+			
+		}
+	};
+	xhttp.open("GET", 'http://127.0.0.1:4000/noti/'+page, true);
+	xhttp.send();
+}
 
 </script>
 {% endif %}
