@@ -82,6 +82,7 @@ def admin_chal_detail(chalid):
 
     if request.method == 'POST':
         status, message = chal_class.attempt(chal, request)
+	print "Hello"
         if status:
             return jsonify({'status': 1, 'message': message})
         else:

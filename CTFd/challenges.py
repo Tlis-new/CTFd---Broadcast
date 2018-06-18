@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import json
 import logging
 import re
@@ -9,7 +11,7 @@ from sqlalchemy.sql import or_
 from CTFd.models import db, Challenges, Files, Solves, WrongKeys, Keys, Tags, Teams, Awards, Hints, Unlocks,Notification
 from CTFd.plugins.keys import get_key_class
 from CTFd.plugins.challenges import get_chal_class
-
+from CTFd.admin.client import *
 from CTFd import utils
 from CTFd.utils.decorators import (
     authed_only,
@@ -396,6 +398,12 @@ def chal(chalid):
                 if utils.ctftime() or utils.is_admin():
                     chal_class.solve(team=team, chal=chal, request=request)
                 logger.info("[{0}] {1} submitted {2} with kpm {3} [CORRECT]".format(*data))
+		filter = Challenges.query.filter_by(id = chalid).all()
+        	chalname = filter[0].name
+		teams = Teams.query.filter_by(id=session['id'])
+        	chal_category = filter[0].category
+        	chal_value = filter[0].value
+        	broadcast("Doi " + teams[0].name + " da giai duoc "+ chal_category + str(chal_value) + ": " + chalname)
                 return jsonify({'status': 1, 'message': message})
             else:  # The challenge plugin says the input is wrong
                 if utils.ctftime() or utils.is_admin():

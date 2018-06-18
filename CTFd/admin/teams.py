@@ -295,6 +295,7 @@ def create_solve(teamid, chalid):
     db.session.add(solve)
     db.session.commit()
     db.session.close()
+    print "Solve"
     return '1'
 
 

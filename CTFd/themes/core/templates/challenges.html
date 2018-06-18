@@ -62,7 +62,7 @@
 </div>
 
 <script>
-var sock = new WebSocket('ws://103.53.198.167:8881');
+var sock = new WebSocket('ws://45.63.122.81:8881');
 sock.onmessage = function(event){
 	var notic = `<div class="notic">
 		`+event.data+`
@@ -129,7 +129,7 @@ function getNotification(){
 			
 		}
 	};
-	xhttp.open("GET", 'http://103.53.198.167:4000/noti/'+page, true);
+	xhttp.open("GET", 'http://45.63.122.81:4000/noti/'+page, true);
 	xhttp.send();
 }
 
