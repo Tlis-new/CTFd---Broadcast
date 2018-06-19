@@ -87,7 +87,11 @@ var page = 1;
 function listNoticScroll(container){
 
 	if(container.scrollTop <= 0 && document.getElementById('list-notic-box').className.indexOf('active') !== -1){
+		var oldScrollHeight = container.scrollHeight;
 		getNotification();
+
+		var newScrollHeight = container.scrollHeight;
+		container.scrollTo(0, newScrollHeight - oldScrollHeight);
 	}
 }
 
