@@ -77,7 +77,7 @@ sock.onmessage = function(event){
 };
 
 document.getElementById('list-notic-box').addEventListener('focus', function(){
-	if(this.className.indexOf('has-notic') !== -1){
+	if(this.className.indexOf('has-notic') !== -1 && this.classname.indexOf('active') !== -1){
 		this.classList.remove('has-notic');
 	}
 });
@@ -85,7 +85,7 @@ document.getElementById('list-notic-box').addEventListener('focus', function(){
 var page = 1;
 
 function listNoticScroll(container){
-	
+
 	if(container.scrollTop <= 0 && document.getElementById('list-notic-box').className.indexOf('active') !== -1){
 		getNotification();
 	}
@@ -105,28 +105,28 @@ getNotification();
 function getNotification(){
 	var xhttp = new XMLHttpRequest();
 	var container = document.getElementById('list-notic');
-	
+
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var messages = JSON.parse(xhttp.responseText);
 			messages.reverse();
 			var notic = '';
-			
+
 			if(messages.length > 0){
 				messages.forEach(function(message){
 					notic += `<div class="notic">
 						`+message+`
 					</div>`;
 				});
-			
+
 				container.innerHTML =  notic + container.innerHTML;
-				
+
 				if(page == 1){
 					container.scrollTop = container.scrollHeight;
 				}
 				page++;
 			}
-			
+
 		}
 	};
 	xhttp.open("GET", 'http://45.63.122.81:4000/noti/'+page, true);
