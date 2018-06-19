@@ -88,11 +88,7 @@ function listNoticScroll(container){
 
 	if(container.scrollTop <= 0 && document.getElementById('list-notic-box').className.indexOf('active') !== -1){
 		var oldScrollHeight = container.scrollHeight;
-		getNotification();
-
-		var newScrollHeight = container.scrollHeight;
-		container.scrollTo(0, newScrollHeight - oldScrollHeight);
-		console.log(newScrollHeight - oldScrollHeight);
+		getNotification(oldScrollHeight);
 	}
 }
 
@@ -107,7 +103,7 @@ function toggleNotic(){
 
 getNotification();
 
-function getNotification(){
+function getNotification(oldScrollHeight = 0){
 	var xhttp = new XMLHttpRequest();
 	var container = document.getElementById('list-notic');
 
@@ -125,6 +121,12 @@ function getNotification(){
 				});
 
 				container.innerHTML =  notic + container.innerHTML;
+
+				if(oldScrollHeight != 0){
+					var newScrollHeight = container.scrollHeight;
+					container.scrollTo(0, newScrollHeight - oldScrollHeight);
+					console.log(newScrollHeight, oldScrollHeight);
+				}
 
 				if(page == 1){
 					container.scrollTop = container.scrollHeight;
