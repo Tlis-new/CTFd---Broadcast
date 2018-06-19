@@ -7,7 +7,8 @@ from CTFd.plugins.keys import get_key_class, KEY_CLASSES
 from CTFd.plugins.challenges import get_chal_class, CHALLENGE_CLASSES
 
 from CTFd import utils
-
+import time
+import datetime
 import os
 from client import *
 admin_challenges = Blueprint('admin_challenges', __name__)
@@ -113,11 +114,6 @@ def admin_chal_solves(chalid):
         Solves.date.asc())
     for solve in solves:
         response['teams'].append({'id': solve.team.id, 'name': solve.team.name, 'date': solve.date})
-        filter = Challenges.query.filter_by(id = chalid).all()
-        chalname = filter[0].name
-        chal_category = filter[0].category
-        chal_value = filter[0].value
-        broadcast("Đội " + solve.team.name + " đã giải được " + chal_category + str(chal_value) + ": " + chalname)
     return jsonify(response)
 
 
@@ -202,7 +198,8 @@ def admin_hints(hintid):
             chalname = filter[0].name
             chal_category = filter[0].category
             chal_value = filter[0].value
-            broadcast("Câu " + chal_category + str(chal_value) + ": " + chalname + " đã thêm gợi ý")
+	    t = datetime.datetime.fromtimestamp(time.time()).strftime('%c').split(' ')[3]
+            broadcast(t + ": Thử thách " + chal_category + " " + str(chal_value) + ": " + chalname + " đã thêm gợi ý")
             db.session.add(hint)
             db.session.commit()
             json_data = {
@@ -292,7 +289,8 @@ def admin_create_chal():
         chal_class = get_chal_class(chal_type)
         chal_class.create(request)
         if not 'hidden' in request.form:
-            broadcast("Câu " + request.form['category'] + request.form['value'] + ": " + request.form['name'] + " đã được mở!")
+	    t = datetime.datetime.fromtimestamp(time.time()).strftime('%c').split(' ')[3]
+            broadcast(t + ": Thử thách " + request.form['category'] + " " + request.form['value'] + ": " + request.form['name'] + " đã được mở!")
         return redirect(url_for('admin_challenges.admin_chals'))
     else:
         return render_template('admin/chals/create.html')
@@ -315,12 +313,15 @@ def admin_update_chal():
         chal_class = get_chal_class(challenge.type)
         chal_class.update(challenge, request)
         if not 'hidden' in request.form:
-            broadcast("Câu " + request.form['category'] + request.form['value'] + ": " + request.form['name'] + " đã được mở!")
+	    t = datetime.datetime.fromtimestamp(time.time()).strftime('%c').split(' ')[3]
+            broadcast(t + ": Thử thách " + request.form['category'] + " " + request.form['value'] + ": " + request.form['name'] + " đã được mở!")
     else:
         chal_class = get_chal_class(challenge.type)
         chal_class.update(challenge, request)
         if not 'hidden' in request.form:
-            broadcast("Câu " + request.form['category'] + request.form['value'] + ": " + request.form['name'] + " đã được update")
+	    t = datetime.datetime.fromtimestamp(time.time()).strftime('%c').split(' ')[3]
+            broadcast(t + " Thử thách " + request.form['category'] + " " + request.form['value'] + ": " + request.form['name'] + " đã được update")
         else:
-            broadcast("Câu " + request.form['category'] + request.form['value'] + ": " + request.form['name'] + " đã được đóng")
+	    t = datetime.datetime.fromtimestamp(time.time()).strftime('%c').split(' ')[3]
+            broadcast(t + ": Thử thách " + request.form['category'] + " " + request.form['value'] + ": " + request.form['name'] + " đã được đóng")
     return redirect(url_for('admin_challenges.admin_chals'))

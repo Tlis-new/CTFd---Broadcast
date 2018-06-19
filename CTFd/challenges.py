@@ -4,7 +4,7 @@ import json
 import logging
 import re
 import time
-
+import datetime
 from flask import render_template, request, redirect, jsonify, url_for, session, Blueprint, abort
 from sqlalchemy.sql import or_
 
@@ -403,7 +403,8 @@ def chal(chalid):
 		teams = Teams.query.filter_by(id=session['id'])
         	chal_category = filter[0].category
         	chal_value = filter[0].value
-        	broadcast("Doi " + teams[0].name + " da giai duoc "+ chal_category + str(chal_value) + ": " + chalname)
+		t = datetime.datetime.fromtimestamp(time.time()).strftime('%c').split(' ')[3]
+        	broadcast(t + ": Đội " + teams[0].name + " đã giải được "+ chal_category + str(chal_value) + ": " + chalname)
                 return jsonify({'status': 1, 'message': message})
             else:  # The challenge plugin says the input is wrong
                 if utils.ctftime() or utils.is_admin():
